@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include "vc.h"
+#include "../src/vc.h"
 
 // Abrir imagem, alterar e gravar em novo ficheiro
 int main()
 {
-    IVC *image;
-    int i;
 
-    image = vc_read_image("../Images/FLIR/flir-01.pgm");
+    IVC *image;
+    
+    
+    image = vc_read_image("../../Images/Classic/airplane.ppm");
 
     if(image == NULL)
     {
@@ -16,12 +17,11 @@ int main()
         return 0;
     }
 
-    vc_write_image("Results/vc-0001.pbm", image);
+    vc_rgb_negative(image);
+
+    vc_write_image("../Results/negativeImage.pgm", image);
 
     vc_image_free(image);
-
-    printf("Press any key to exit...\n");
-    getchar();
 
     return 0;
 }

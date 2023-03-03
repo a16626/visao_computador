@@ -362,3 +362,63 @@ int vc_write_image(char *filename, IVC *image)
 	
 	return 0;
 }
+
+// Gerar negativo da imagem GRAY
+int vc_gray_negative(IVC *srcdst) 
+{
+	unsigned char *data = (unsigned char *) srcdst->data;
+	int width = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->width * srcdst->channels;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//Verificação de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 1) return 0;
+
+	// Inverte a imagem GRAY
+	for (y = 0; y < height; y++) 
+	{
+		for (x = 0; x < width; x++)
+		{
+			pos = y * bytesperline + x * channels;
+
+			data[pos] = 255 - data[pos];			
+		}		
+	}
+
+	return 1;
+}
+
+//Gerar negativo imagem RGB
+int vc_rgb_negative(IVC *srcdst)
+{
+	unsigned char *data = (unsigned char *) srcdst->data;
+	int width = srcdst->width;
+	int height = srcdst->height;
+	int bytesperline = srcdst->width * srcdst->channels;
+	int channels = srcdst->channels;
+	int x, y;
+	long int pos;
+
+	//Verificação de erros
+	if ((srcdst->width <= 0) || (srcdst->height <= 0) || (srcdst->data == NULL)) return 0;
+	if (channels != 3) return 0;
+
+	// Inverte a imagem RGB
+	for (y = 0; y < height; y++)
+	{
+		for (x = 0; x < width; x++) 
+		{
+			pos = y * bytesperline + x * channels;
+			
+			data[pos] = 255 - data[pos];
+			data[pos + 1] = 255 - data[pos + 1];
+			data[pos + 2] = 255 - data[pos + 2];
+		}		
+	}
+
+	return 1;
+}

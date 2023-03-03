@@ -24,7 +24,14 @@ int main()
         {
             pos = y * image->bytesperline + x * image->channels;
 
-            image->data[pos] = (x+y)/2;
+            //Vertical
+            image->data[pos] = x;
+            
+            //Horizontal
+            //image->data[pos] = y
+            
+            //Diagonal
+            //image->data[pos] = (x+y)/2;
         }
     }
 
